@@ -14,6 +14,7 @@ def rounding(num: float):
     return round(num, 2)
 
 
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     delete_image(app.config['UPLOAD_FOLDER'])
