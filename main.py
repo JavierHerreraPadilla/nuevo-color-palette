@@ -1,29 +1,40 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import os
 from forms import uploadForm
 import werkzeug
-
-
+from img_proc import color_palette
+from delete_image import delete_image
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = './static'
+app.config['UPLOAD_FOLDER'] = './static/images'
 app.config['SECRET_KEY'] = 'KASJVDHJT8767876UGFGjhvdbjh83'
+
+@app.template_filter('rounding')
+def rounding(num: float):
+    return round(num, 2)
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    img_path = './static/images.jpg'
+    delete_image(app.config['UPLOAD_FOLDER'])
+    img_path = './static/sample.jpg'
+    colors, tot_pxs = color_palette(img_path, 3)
+
+    print(colors)
     form = uploadForm()
     if form.validate():
         print('form validated')
         f = form.file.data
         filename = werkzeug.utils.secure_filename(f.filename)
-        f.save(os.path.join(
-            app.config['UPLOAD_FOLDER'], filename
-        ))
+        img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        f.save(img_path)
+        colors, tot_pxs = color_palette(img_path, form.colors.data)
+
         print(filename)
+        return render_template('index.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs)
     else:
         print('errors in form', form.file.errors)
-    return render_template('index.html', img_path=img_path, form=form)
+    return render_template('index.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs)
 
 
 
