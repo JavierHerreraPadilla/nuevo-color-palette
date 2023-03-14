@@ -5,5 +5,5 @@ from wtforms.fields import SubmitField, FileField, IntegerField
 
 class uploadForm(FlaskForm):
     file = FileField('Image', validators=[FileRequired(), FileAllowed(['jpg', 'png','jpeg'], 'Images only!')])
-    colors = IntegerField('Number of colors', default=3)
+    colors = IntegerField('Number of colors', default=5)
     submit = SubmitField('Upload')
