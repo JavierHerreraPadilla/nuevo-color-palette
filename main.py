@@ -14,9 +14,10 @@ def rounding(num: float):
     return round(num, 2)
 
 
-
+@app.route('/test', methods=['POST', 'GET'])
 @app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/home', methods=['POST', 'GET'])
+def test():
     delete_image(app.config['UPLOAD_FOLDER'])
     img_path = './static/sample.jpg'
     colors, tot_pxs = color_palette(img_path, 5)
@@ -30,14 +31,13 @@ def index():
         img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         f.save(img_path)
         colors, tot_pxs = color_palette(img_path, form.colors.data)
-        return render_template('index.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs)
+        return render_template('index3.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs)
     elif form.is_submitted() and not form.validate():
         print('errors in form', form.file.errors)
         flash(f'ONLY IMAGE-TYPE FILES')
-        return redirect(url_for('index'))
+        return redirect(url_for('test'))
 
-    return render_template('index.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs)
-
+    return render_template('index3.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs)
 
 
 # Press the green button in the gutter to run the script.
