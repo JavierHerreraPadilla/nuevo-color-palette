@@ -18,7 +18,9 @@
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="index.html">Color Palette by Javier Herrera</a>
+                    <a class="navbar-brand" href="{{ url_for('test') }}">Color Palette by Javier Herrera</a>
+                    <a class="navbar-brand" href="#api-section"><b style="color: cyan">API</b></a>
+
                 </div>
             </nav>
             <!-- Header -->
@@ -85,10 +87,10 @@
 
             </header>
             <!-- Features section-->
-            <section class="py-2" id="features">
+            <section class="py-2.5" id="features">
                 <div class="container px-5 my-5">
                     <div class="row gx-5">
-                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Colors Extracted:</h2></div>
+                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">COLORS EXTRACTED</h2></div>
                         <div class="col-lg-8">
                             <div class="row gx-5 row-cols-1 row-cols-md-2">
                                 <!-- <div class="col mb-5 h-100"> -->
@@ -119,11 +121,66 @@
                         </div>
                     </div>
                 </div>
-            </section>
+    </section>
 
+
+<!-- API SECTION -->
+
+            <section class="py-1"  style="background-color: lightgray" id="api-section">
+                  <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="text-center">
+                                <h2 class="fw-bolder">EXTRACT THE COLORS USING THE API</h2>
+                                <p class="lead fw-normal text-muted mb-5">A simple API to extract the colors of an image file.
+                                The API is free for up to 50 files/day. No sign up or API key needed. So go ahead and try it out.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row gx-5">
+                        <div class="highlight shadow p-3 mb-1 bg-body rounded">
+                            <pre class="chroma">
+                                <code class="language-html" data-lang="html">
+                                end_point = <b style="color: green">"https://localhost:5000/api"</b>
+                                <b style="color: orange">with</b> open(<b style="color: green">"./folder/where/your/image/your_image.jpg"</b>, <b style="color: green">"rb"</b>) <b style="color: orange">as</b> img:
+                                    image={<b style="color: green">'image'</b>:img}
+                                    response = requests.post(<b style="color: orange">url=</b>end_point, <b style="color: orange">files=</b>image, <b style="color: orange">params=</b>{<b style="color: green">'num_colors'</b>:2})
+
+                                response.json()
+
+                               {
+                                 "cluester_centers": "2",
+                                 "extracted": [
+                                   {
+                                     "color0": "(145.5, 77.1, 1.9)",
+                                     "pxs": "48702"
+                                   },
+                                   {
+                                     "color1": "(227.5, 154.9, 27.8)",
+                                     "pxs": "31298"
+                                   }
+                                 ],
+                                 "resolution": "(200, 400, 3)",
+                                 "total_pxls": "80000"
+                               }
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                  </div>
+            </section>
             <!-- Blog preview section-->
-            <section class="1">
-                <div class="container px-5 my-5">
+
+
+
+
+        <!-- Footer-->
+        <footer class="bg-dark py-4 mt-auto">
+
+
+
+            <div class="container px-5 my-5">
 
 
                     <!-- Call to action-->
@@ -141,8 +198,10 @@
                                     </a>
                                 </div>
                                 <div class="col-sm">
-                                    <img width="50" height="50" src="./static/github.svg">
-                                    <div class="small text-white-50">GitHub </div>
+                                    <a href="https://github.com/JavierHerreraPadilla/nuevo-color-palette" target="_blank">
+                                        <img width="50" height="50" src="./static/github.svg">
+                                        <div class="small text-white-50">GitHub</div>
+                                    </a>
                                 </div>
                                 <div class="col-sm">
                                 <img width="50" height="50" src="./static/location-dot-solid.svg">
@@ -152,20 +211,14 @@
                         </div>
                     </aside>
                 </div>
-            </section>
-        </main>
-        <!-- Footer-->
-        <footer class="bg-dark py-4 mt-auto">
+
+
+
+
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                     <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Color Palette by Javier Herrera {{ year }}</div></div>
-                    <div class="col-auto">
-                        <a class="link-light small" href="#!">Privacy</a>
-                        <span class="text-white mx-1">&middot;</span>
-                        <a class="link-light small" href="#!">Terms</a>
-                        <span class="text-white mx-1">&middot;</span>
-                        <a class="link-light small" href="#!">Contact</a>
-                    </div>
+
                 </div>
             </div>
         </footer>

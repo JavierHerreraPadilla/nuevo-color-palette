@@ -21,7 +21,6 @@ def test():
     delete_image(app.config['UPLOAD_FOLDER'])
     img_path = './static/sample.jpg'
     colors, tot_pxs = color_palette(img_path, 5)
-
     print(colors)
     form = uploadForm()
     if form.validate() and form.is_submitted():
@@ -40,8 +39,8 @@ def test():
             print('errors in form', form.file.errors)
             flash(f'We only accept images')
         return redirect(url_for('test'))
-
-    return render_template('index3.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs, year=datetime.now().year)
+    year = datetime.now().year
+    return render_template('index3.html', img_path=img_path, form=form, colors=colors, tot_pxs=tot_pxs, year=year)
 
 @app.route('/api', methods = ['GET', 'POST'])
 def api_response():
@@ -50,6 +49,6 @@ def api_response():
     return jsonify(api_color(data_recived.stream, num_color=int(request.values.get('num_colors'))))
 
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
